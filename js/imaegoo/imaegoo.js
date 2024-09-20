@@ -45,7 +45,7 @@
     var twikooNewEl = document.getElementsByClassName('twikoo-new-container');
     if (twikooNewEl.length === 0) return;
     twikoo.getRecentComments({
-      envId: window.twikooEnvId,
+      envId: 'https://twikoo.yuazhi.cn',
       pageSize: 5,
       includeReply: true
     }).then(function (res) {
