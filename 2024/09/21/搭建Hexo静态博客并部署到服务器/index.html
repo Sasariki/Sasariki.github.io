@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>搭建Hexo静态博客并部署到服务器 - 万事屋</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="万事屋"><meta name="msapplication-TileImage" content="https://cdn.motsuni.cn/uploads/2024/06/20240615192212168.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="万事屋"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="记录Hexo博客搭建的基本过程，包括备份到GitHub以及部署到服务器。 准备工作  安装git到git官网下载安装包，可根据自己的系统(Mac&amp;#x2F;Linux&amp;#x2F;Win)进行选择，下载完进行安装即可。 安装node.js同样到node.js官网下载对应的安装包，一直下一步安装。 测试安装结果  git --version &amp;#x2F;&amp;#x2F;查看git版本 node --version &amp;#x2F;&amp;#x2F;查看node.js版本 n"><meta property="og:type" content="article"><meta property="og:title" content="搭建Hexo静态博客并部署到服务器"><meta property="og:url" content="http://example.com/2024/09/21/%E6%90%AD%E5%BB%BAHexo%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/"><meta property="og:site_name" content="万事屋"><meta property="og:description" content="记录Hexo博客搭建的基本过程，包括备份到GitHub以及部署到服务器。 准备工作  安装git到git官网下载安装包，可根据自己的系统(Mac&amp;#x2F;Linux&amp;#x2F;Win)进行选择，下载完进行安装即可。 安装node.js同样到node.js官网下载对应的安装包，一直下一步安装。 测试安装结果  git --version &amp;#x2F;&amp;#x2F;查看git版本 node --version &amp;#x2F;&amp;#x2F;查看node.js版本 n"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/images/og_image.png"><meta property="article:published_time" content="2024-09-21T13:59:03.561Z"><meta property="article:modified_time" content="2024-09-21T13:59:53.238Z"><meta property="article:author" content="John Doe"><meta property="article:tag" content="Hexo"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/images/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/09/21/%E6%90%AD%E5%BB%BAHexo%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/"},"headline":"搭建Hexo静态博客并部署到服务器","image":["http://example.com/images/og_image.png"],"datePublished":"2024-09-21T13:59:03.561Z","dateModified":"2024-09-21T13:59:53.238Z","author":{"@type":"Person","name":"John Doe"},"publisher":{"@type":"Organization","name":"万事屋","logo":{"@type":"ImageObject","url":{"light":"https://cdn.motsuni.cn/hexo/%E4%B8%87%E4%BA%8B%E5%B1%8B%EF%BC%88%E4%BA%AE%E8%89%B2%EF%BC%89.png","dark":"https://cdn.motsuni.cn/hexo/%E4%B8%87%E4%BA%8B%E5%B1%8B%EF%BC%88%E6%9A%97%E8%89%B2%EF%BC%89.png"}}},"description":"记录Hexo博客搭建的基本过程，包括备份到GitHub以及部署到服务器。 准备工作  安装git到git官网下载安装包，可根据自己的系统(Mac&#x2F;Linux&#x2F;Win)进行选择，下载完进行安装即可。 安装node.js同样到node.js官网下载对应的安装包，一直下一步安装。 测试安装结果  git --version &#x2F;&#x2F;查看git版本 node --version &#x2F;&#x2F;查看node.js版本 n"}</script><link rel="canonical" href="http://example.com/2024/09/21/%E6%90%AD%E5%BB%BAHexo%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/"><link rel="alternate" href="/atom.xml" title="万事屋" type="application/atom+xml"><link rel="icon" href="https://cdn.motsuni.cn/uploads/2024/06/20240615192212168.png"><link rel="stylesheet" href="/css/font/fontawesome/css/all.min.css"><link data-pjax rel="stylesheet" href="/js/imaegoo/highlight.js/11.7.0/styles/atom-one-light.css"><link data-pjax rel="stylesheet" href="/css/default.css"><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4d5b97d11341c6f57b58fc622dc1ac38";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><script src="https://vercount.one/js" defer></script><link rel="stylesheet" href="/js/imaegoo/lightgallery/1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="/js/imaegoo/justifiedGallery/3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="/js/imaegoo/cookieconsent/3.1.1/build/cookieconsent.min.css"><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><script type="text/javascript" src="/js/imaegoo/night.js"></script><canvas id="universe"></canvas><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img class="logo-img" src="https://cdn.motsuni.cn/hexo/%E4%B8%87%E4%BA%8B%E5%B1%8B%EF%BC%88%E4%BA%AE%E8%89%B2%EF%BC%89.png" alt="万事屋" height="28"><img class="logo-img-dark" src="https://cdn.motsuni.cn/hexo/%E4%B8%87%E4%BA%8B%E5%B1%8B%EF%BC%88%E6%9A%97%E8%89%B2%EF%BC%89.png" alt="万事屋" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives/">时间轴</a><a class="navbar-item" href="/categories/">分类</a><a class="navbar-item" href="/tags/">标签</a><a class="navbar-item" href="/talks">动态</a><a class="navbar-item" target="_blank" rel="noopener" href="https://card.yuazhi.cn/">名片</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-09-21T13:59:03.561Z" title="9/21/2024, 1:59:03 PM">2024-09-21</time>发表</span><span class="level-item"><time dateTime="2024-09-21T13:59:53.238Z" title="9/21/2024, 1:59:53 PM">2024-09-21</time>更新</span><span class="level-item">11 分钟读完 (大约1693个字)</span><span class="level-item leancloud_visitors" id="/2024/09/21/%E6%90%AD%E5%BB%BAHexo%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-flag-title="搭建Hexo静态博客并部署到服务器"><i class="far fa-eye"></i>&nbsp;&nbsp;<span id="twikoo_visitors"><i class="fa fa-spinner fa-spin"></i></span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">搭建Hexo静态博客并部署到服务器</h1><div class="content"><p>记录Hexo博客搭建的基本过程，包括备份到GitHub以及部署到服务器。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装git到<a target="_blank" rel="noopener" href="https://git-scm.com/downloads">git官网</a>下载安装包，可根据自己的系统(Mac&#x2F;Linux&#x2F;Win)进行选择，下载完进行安装即可。</li>
+<li>安装node.js同样到<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">node.js官网</a>下载对应的安装包，一直下一步安装。</li>
+<li>测试安装结果</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line">//查看git版本</span><br><span class="line">node --version</span><br><span class="line">//查看node.js版本</span><br><span class="line">npm --version</span><br><span class="line">//查看npm版本</span><br></pre></td></tr></table></figure>
+
+<p>能够看到版本号，则说明安装成功</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113547115.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><ul>
+<li>使用npm命令安装Hexo</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">//使用-g命令进行全局安装</span><br></pre></td></tr></table></figure>
+
+<p>安装过程视网络情况而定，如果安装速度过慢，可以使用&#x3D;&#x3D;cnpm&#x3D;&#x3D;进行安装，安装完毕后如下，可能会出现一些警告信息，可以忽略</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113619318.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<ul>
+<li>查看hexo是否安装成功</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br><span class="line">//查看hexo版本号</span><br></pre></td></tr></table></figure>
+
+<p>运行上述代码后，出现错误提示**&#x3D;&#x3D;hexo : 无法加载文件 ……\npm\hexo.ps1，因为在此系统上禁止运行脚本&#x3D;&#x3D;**</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113803582.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<p>解决方案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/在Powershell中运行如下代码</span><br><span class="line">set-ExecutionPolicy RemoteSigned</span><br></pre></td></tr></table></figure>
+
+<p>执行完毕后，就可以看到hexo的版本了，说明hexo已经安装成功</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113829550.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<h2 id="使用Hexo在本地部署博客"><a href="#使用Hexo在本地部署博客" class="headerlink" title="使用Hexo在本地部署博客"></a>使用Hexo在本地部署博客</h2><ul>
+<li>首先新建一个空白的文件夹，并使用hexo进行初始化</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line">//创建一个文件夹</span><br><span class="line">cd .\blog\</span><br><span class="line">//进入blog文件夹</span><br><span class="line">hexo init</span><br><span class="line">//进行初始化</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：**&#x3D;&#x3D;使用hexo进行初始化时，必须保证文件夹是空的，否则会报错&#x3D;&#x3D;**</li>
+<li>在同样的文件夹下，运行命令生成文件，并开启hexo服务</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">//清理原来生成的配置文件(如果有的话)</span><br><span class="line">hexo g</span><br><span class="line">//生成配置文件</span><br><span class="line">hexo s</span><br><span class="line">//启动本地的hexo服务</span><br></pre></td></tr></table></figure>
+
+<p>启动服务后如下，这个界面是因为我更换了icarus的主题，没有更换主题的界面和下图不同</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113922177.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<p>注意：生成和推送博客上，可能会提示**&#x3D;&#x3D;Package cheerio is not installed&#x3D;&#x3D;**，只需要执行<code>&lt;span class=&quot;pln&quot;&gt;npm install cherrio&lt;span&gt; &lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;S&lt;/span&gt;</code>即可</p>
+<p>运行hexo后，根据提示进入<code>&lt;span class=&quot;pln&quot;&gt;localhost&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;lit&quot;&gt;4000&lt;/span&gt;</code>，就可以看到生成的博客了</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113945192.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<h2 id="将博客备份到GitHub"><a href="#将博客备份到GitHub" class="headerlink" title="将博客备份到GitHub"></a>将博客备份到GitHub</h2><ul>
+<li>创建GitHub仓库作为备份，我们可以在GitHub创建一个仓库来进行存放。首先进入Github，点击右上角的账户→Your repositories→New，创建一个新的仓库，类型根据自己需求选择public或者private</li>
+</ul>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920113956400.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<ul>
+<li>配置秘钥</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;Name&quot;</span><br><span class="line">//Name为Github用户名</span><br><span class="line">git config --global user.email &quot;Email@domain.com&quot;</span><br><span class="line">//Email为GitHub邮箱</span><br><span class="line">ssh-keygen -t rsa -C &quot;Email@domain.com&quot;</span><br><span class="line">//生成秘钥</span><br></pre></td></tr></table></figure>
+
+<p>秘钥生成后，到<code>&lt;span class=&quot;pln&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;\User\Username\\&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;ssh&lt;/span&gt;</code>下，打开<code>&lt;span class=&quot;pln&quot;&gt;id_rsa&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;pub&lt;/span&gt;</code>文件，复制秘钥</p>
+<p>打开GitHub，进入右上角用户→Settings→SSH and GPG keys→New ssh key，新建一个SSH秘钥，将刚才复制的内容粘贴进去，并确认</p>
+<p>确认完毕后，运行<code>&lt;span class=&quot;pln&quot;&gt;ssh&lt;span&gt; &lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;T git@github&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;com&lt;/span&gt;</code>测试秘钥是否可用，连接成功后如下</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920114047614.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<ul>
+<li>提交到GitHub</li>
+</ul>
+<p>要提交内容到GitHub，可以使用<code>&lt;span class=&quot;pln&quot;&gt;hexo&lt;/span&gt;</code>的deploy功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deploy-git --save</span><br><span class="line">//安装hexo-deplyo-git插件</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕后，进入博客目录，编辑<code>&lt;span class=&quot;pln&quot;&gt;_config&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;yml&lt;/span&gt;</code>文件，在末尾的deploy功能中，填上GitHub仓库的地址即可</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920114122258.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<p>接下来，运行<code>&lt;span class=&quot;pln&quot;&gt;hexo deploy&lt;/span&gt;</code>，即可将博客上传到GitHub仓库中</p>
+<h2 id="将博客部署到服务器"><a href="#将博客部署到服务器" class="headerlink" title="将博客部署到服务器"></a>将博客部署到服务器</h2><ul>
+<li>配置服务器git账户安装git并创建git账户</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//安装git</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install git</span><br><span class="line">//配置单独的git用户用于同步博客</span><br><span class="line">adduser git //添加用户，并根据提示设置密码</span><br><span class="line">//给git账户添加权限</span><br><span class="line">vim /etc/sudoers</span><br><span class="line">//在root用户下方添加</span><br><span class="line">git    ALL=(ALL)    ALL</span><br></pre></td></tr></table></figure>
+
+<p>切换到git用户，初始化git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//切换目录</span><br><span class="line">cd /home/git</span><br><span class="line">//创建git仓库文件夹</span><br><span class="line">mkdir blog.git</span><br><span class="line">//进入仓库目录</span><br><span class="line">cd blog.git</span><br><span class="line">//初始化为空仓库</span><br><span class="line">git init --bare</span><br></pre></td></tr></table></figure>
+
+<p>配置SSH秘钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br><span class="line">mkdir ~/.ssh</span><br><span class="line">//将Windows下生成的秘钥拷贝过来</span><br><span class="line">vim ~/.ssh/authorized_keys</span><br><span class="line">//修改文件权限</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>配置完毕后，回到Windows输入<code>&lt;span class=&quot;pln&quot;&gt;ssh&lt;span&gt; &lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;v git@Server&lt;/span&gt;</code>测试秘钥是否可用</p>
+<ul>
+<li>安装Nginx</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕后，执行<code>&lt;span class=&quot;pln&quot;&gt;sudo&lt;span&gt; &lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;nginx start&lt;/span&gt;</code>，若显示running则表示安装成功</p>
+<ul>
+<li>配置Nginx</li>
+</ul>
+<p>打开配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/nginx/conf.d/</span><br><span class="line">sudo vim blog.conf</span><br></pre></td></tr></table></figure>
+
+<p>添加如下配置，并根据监听端口，开启服务器防火墙</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">        listen 8081;</span><br><span class="line">        server_name _;</span><br><span class="line">        root /var/www/blog;</span><br><span class="line">        index index.html;</span><br><span class="line">        location / &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置博客根目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/www/blog</span><br></pre></td></tr></table></figure>
+
+<p>确保<code>&lt;span class=&quot;pln&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;git&lt;/span&gt;</code>、<code>&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;ssh&lt;/span&gt;</code>、<code>&lt;span class=&quot;pln&quot;&gt;blog&lt;/span&gt;</code>目录的用户组权限均为<code>&lt;span class=&quot;pln&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;git&lt;/span&gt;</code>，如下图所示</p>
+<p><img src="https://cdn.motsuni.cn/uploads/2024/09/20240920114332450.png?imageView2/0/q/60%7Cwatermark/2/text/6bii5qCAIOWXt-WRnH4=/font/5pa55q2j6buR5L2T/fontsize/240/fill/IzAwMDAwMA==/dissolve/100/gravity/SouthEast/dx/10/dy/10%7Cimageslim"></p>
+<p>如果不是，则执行如下命令，修改权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown git:git -R /var/www/blog</span><br><span class="line">sudo chown git:git -R /home/git/blog.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置Git Hooks</li>
+</ul>
+<p>创建<code>&lt;span class=&quot;pln&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;receive&lt;/span&gt;</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br><span class="line">//切换用户</span><br><span class="line">cd /home/git/blog.git/hooks</span><br><span class="line">//进入hooks目录</span><br><span class="line">vim post-receive</span><br><span class="line">//创建文件</span><br></pre></td></tr></table></figure>
+
+<p>添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">GIT_REPO=/home/git/blog.git</span><br><span class="line">TMP_GIT_CLONE=/tmp/blog</span><br><span class="line">PUBLIC_WWW=/var/www/blog</span><br><span class="line">rm -rf $&#123;TMP_GIT_CLONE&#125;</span><br><span class="line">git clone $GIT_REPO $TMP_GIT_CLONE</span><br><span class="line">rm -rf $&#123;PUBLIC_WWW&#125;/*</span><br><span class="line">cp -rf $&#123;TMP_GIT_CLONE&#125;/* $&#123;PUBLIC_WWW&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存后，执行：<code>&lt;span class=&quot;pln&quot;&gt;chmod&lt;span&gt; &lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;x post&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;receive&lt;/span&gt;</code> 添加权限</p>
+<ul>
+<li>配置Hexo编辑本地博客根目录下的<code>&lt;span class=&quot;pln&quot;&gt;_config&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;yml&lt;/span&gt;</code>文件，在原来备份到GitHub的地址下添加一行<code>&lt;span class=&quot;typ&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;&lt;span&gt; &lt;/span&gt;git@YourIP&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt;gt&lt;/span&gt;</code>，再运行<code>&lt;span class=&quot;pln&quot;&gt;hexo deploy&lt;/span&gt;</code>就可以将博客部署到服务器上了</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>搭建Hexo静态博客并部署到服务器</p><p><a href="http://example.com/2024/09/21/搭建Hexo静态博客并部署到服务器/">http://example.com/2024/09/21/搭建Hexo静态博客并部署到服务器/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>John Doe</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-09-21</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-09-21</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="" rel="noopener" target="_blank" title="CC BY 4.0" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC BY 4.0</a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Hexo/">Hexo</a></div><link rel="stylesheet" href="/js/imaegoo/social-share.js/1.0.16/dist/css/share.min.css"><div class="social-share"></div><script src="/js/imaegoo/social-share.js/1.0.16/dist/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://cdn.motsuni.cn/uploads/2024/09/20240919104721414.jpg" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://cdn.motsuni.cn/uploads/2024/09/20240919104717530.jpg" alt="微信"></span></a></div></div></div><div class="card"><nav class="post-navigation mt-4 level is-mobile card-content"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/09/21/%E7%8E%B0%E4%BB%A3JavaScript%E4%B8%AD%E7%9A%84%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%A8%A1%E5%BC%8F/"><span class="level-item">现代JavaScript中的异步编程技巧与模式</span><i class="level-item fas fa-chevron-right"></i></a></div></nav></div><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content twikoo" id="twikoo"></div><script src="https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js"></script><script>twikoo.init({
+            envId: 'https://twikoo.yuazhi.cn',
+            
+            lang: "zh-CN",
+            onCommentLoaded: function () {
+              var commentContents = document.getElementsByClassName('tk-content');
+              for (var i = 0; i < commentContents.length; i++) {
+                var commentItem = commentContents[i];
+                var imgEls = commentItem.getElementsByTagName('img');
+                if (imgEls.length > 0) {
+                  for (var j = 0; j < imgEls.length; j++) {
+                    var imgEl = imgEls[j];
+                    var aEl = document.createElement('a');
+                    aEl.setAttribute('class', 'tk-lg-link');
+                    aEl.setAttribute('href', imgEl.getAttribute('src'));
+                    aEl.setAttribute('data-src', imgEl.getAttribute('src'));
+                    aEl.appendChild(imgEl.cloneNode(false));
+                    imgEl.parentNode.insertBefore(aEl, imgEl.nextSibling);
+                    imgEl.remove();
+                  }
+                  if (typeof $.fn.lightGallery === 'function') {
+                    $(commentItem).lightGallery({
+                      selector: '.tk-lg-link'
+                    });
+                  }
+                }
+              }
+            }
+        });</script></div></div></div><style>.column.column-left,.column.column-right{display:none}</style><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://cdn.motsuni.cn/uploads/2024/09/20240918153408646.jpg" alt="鸢栀"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">鸢栀</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">23</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://space.bilibili.com/4750943" target="_blank" rel="me noopener" id="widget-follow">GitHub</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="GitHub" href="https://github.com/Sasariki/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Mail" href="/hfyu2008@rjjr.cn"><i class="fas fa-envelope"></i></a></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/09/"><span class="level-start"><span class="level-item">九月 2024</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><span class="level-start"><span class="level-item">技术分享</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2/"><span class="level-start"><span class="level-item">部署</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Ai/"><span class="tag">Ai</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CND/"><span class="tag">CND</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CSS/"><span class="tag">CSS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java/"><span class="tag">Java</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Python/"><span class="tag">Python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Web/"><span class="tag">Web</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WordPress/"><span class="tag">WordPress</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/bing/"><span class="tag">bing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/umami/"><span class="tag">umami</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/web/"><span class="tag">web</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%87%BD%E6%95%B0/"><span class="tag">函数</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8A%A0%E9%80%9F/"><span class="tag">加速</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"><span class="tag">反向代理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%98%E9%87%8F/"><span class="tag">变量</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%9D%E5%A1%94/"><span class="tag">宝塔</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"><span class="tag">宝塔面板</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%9F%E8%AE%A1/"><span class="tag">统计</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C/"><span class="tag">网络</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1/"><span class="tag">设计</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%83%A8%E7%BD%B2/"><span class="tag">部署</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile is-mobile" href="https://rjjr.cn" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">万事屋日记</span></span><span class="level-right"><span class="level-item tag">rjjr.cn</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://www.oplog.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">啊不都</span></span><span class="level-right"><span class="level-item tag">www.oplog.cn</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://blog.xiowo.net/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Mo的记事簿</span></span><span class="level-right"><span class="level-item tag">blog.xiowo.net</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://motsuni.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">万事铺</span></span><span class="level-right"><span class="level-item tag">motsuni.cn</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://www.imaegoo.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">iMaeGoo’s Blog</span></span><span class="level-right"><span class="level-item tag">www.imaegoo.com</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://fengyuanhuyi.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">虎義</span></span><span class="level-right"><span class="level-item tag">fengyuanhuyi.com</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://www.naokuo.top/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Naokuo</span></span><span class="level-right"><span class="level-item tag">www.naokuo.top</span></span></a></li></ul></div><a class="link-more button is-light is-small size-small" href="/friends/">查看更多</a></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-21T13:59:03.561Z">2024-09-21</time></p><p class="title"><a href="/2024/09/21/%E6%90%AD%E5%BB%BAHexo%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">搭建Hexo静态博客并部署到服务器</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-21T13:54:16.057Z">2024-09-21</time></p><p class="title"><a href="/2024/09/21/%E7%8E%B0%E4%BB%A3JavaScript%E4%B8%AD%E7%9A%84%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%A8%A1%E5%BC%8F/">现代JavaScript中的异步编程技巧与模式</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-21T13:47:35.838Z">2024-09-21</time></p><p class="title"><a href="/2024/09/21/%E6%8E%8C%E6%8F%A1CSS%E5%8F%98%E9%87%8F%EF%BC%9A%E6%8A%80%E5%B7%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">掌握CSS变量：技巧与最佳实践</a></p><p class="categories"><a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-21T13:44:17.588Z">2024-09-21</time></p><p class="title"><a href="/2024/09/21/%E5%93%8D%E5%BA%94%E5%BC%8FWeb%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">响应式Web设计的最佳实践</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-09-20T11:04:07.162Z">2024-09-20</time></p><p class="title"><a href="/2024/09/20/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%9C%89%E5%92%8C%E5%8C%BA%E5%88%AB%EF%BC%9F/">编程语言有和区别？</a></p></div></article></div></div><div class="card widget" id="twikoo-new"><div class="card-content"><div class="menu"><h3 class="menu-label">最新评论</h3><script>window.twikooEnvId = 'undefined';</script><div class="twikoo-new-container"></div></div></div></div></div><style>.column.column-left,.column.column-right{display:block}</style></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img class="logo-img" src="https://cdn.motsuni.cn/hexo/%E4%B8%87%E4%BA%8B%E5%B1%8B%EF%BC%88%E4%BA%AE%E8%89%B2%EF%BC%89.png" alt="万事屋" height="28"><img class="logo-img-dark" src="https://cdn.motsuni.cn/hexo/%E4%B8%87%E4%BA%8B%E5%B1%8B%EF%BC%88%E6%9A%97%E8%89%B2%EF%BC%89.png" alt="万事屋" height="28"></a><p class="is-size-7"><span>&copy; 2024 John Doe</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/imaegoo/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">总访问量&nbsp;<span id="busuanzi_value_site_pv">-</span>&nbsp;次&nbsp;&nbsp;总访客数&nbsp;<span id="busuanzi_value_site_uv">-</span>&nbsp;人</span></p><p class="is-size-7"><a href="https://beian.miit.gov.cn" target="_blank" rel="noreferrer noopener">皖ICP备2024035156号-3</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/deed.zh"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="/js/imaegoo/jquery/3.3.1/dist/jquery.min.js"></script><script src="/js/imaegoo/moment/2.22.2/min/moment-with-locales.min.js"></script><script src="https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js"></script><script src="/js/imaegoo/clipboard/2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="/js/imaegoo/lightgallery/1.10.0/dist/js/lightgallery.min.js" defer></script><script src="/js/imaegoo/justifiedGallery/3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/javascript" id="MathJax-script" async>MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      chtml: {
+        matchFontHeight: false
+      }
+    };</script><script src="/js/imaegoo/mathjax/3.2.2/es5/tex-mml-chtml.js"></script><script src="/js/imaegoo/cookieconsent/3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-right",
+        content: {
+          message: "此网站使用 Cookie，以启用评论系统和分析功能。",
+          dismiss: "知道了",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "/cookies.html",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><div class="searchbox-pinyin"><label class="checkbox"><input id="search-by-pinyin" type="checkbox" checked="checked"><span> 拼音检索</span></label></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/imaegoo/pinyin.js" defer></script><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script type="text/javascript" src="/js/imaegoo/imaegoo.js"></script><script type="text/javascript" src="/js/imaegoo/universe.js"></script></body></html>
